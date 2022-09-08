@@ -12,10 +12,10 @@ export default class NegociacoesView {
                         <th>VALOR</th>
                     </tr>
                 </thead>
-                <tbody>${model.lista().map(({ quantidade, valor }) => {
+                <tbody>${model.lista().map(({ quantidade, valor, data }) => {
             return `
                         <tr>
-                            <td>?</td>
+                            <td>${new Intl.DateTimeFormat().format(data)}</td>
                             <td>${quantidade}</td>
                             <td>${valor}</td>
                         </tr>
