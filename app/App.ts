@@ -7,7 +7,3 @@ form.addEventListener('submit', e =>{
   e.preventDefault();
   controller.adiciona();
 } );
-
-const negociacoesView = new NegociacoesView
-const template = negociacoesView.template();
-console.log(template);
