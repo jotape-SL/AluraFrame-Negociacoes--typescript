@@ -7,15 +7,23 @@ export default class negociacaoController {
         this.negociacoes = new Negociacoes();
         this.negociacoesView = new NegociacoesView('#negociacoesView');
         this.mensagemView = new MensagemView('#mensagemView');
+        this.SABADO = 6;
+        this.DOMINGO = 0;
         this.inputData = document.querySelector('#data');
         this.inputQuantidade = document.querySelector('#quantidade');
         this.inputValor = document.querySelector('#valor');
         this.negociacoesView.update(this.negociacoes);
     }
+    isDiaUtil(data) {
+        return data.getDay() < this.SABADO && data.getDay() > this.DOMINGO;
+    }
     adiciona() {
         const negociacao = this.criaNegociacao();
+        if (this.isDiaUtil(negociacao.data)) {
+            this.mensagemView.update('Negociações só podem ser feitas em dias úteis. ');
+            return;
+        }
         this.negociacoes.adiciona(negociacao);
-        this.negociacoes.lista();
         this.limpaForm();
         this.atualizaView();
     }
