@@ -1,5 +1,4 @@
 export class View {
-    // paramentos opcionais nao podem ser atrbuidos nos primeiros paramentros sendo necessario colocar-los por ultimo
     constructor(selector, escapar) {
         this.escapar = false;
         this.element = document.querySelector(selector);
