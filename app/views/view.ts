@@ -4,7 +4,13 @@ export abstract class View<T> {
 
     // paramentos opcionais nao podem ser atrbuidos nos primeiros paramentros sendo necessario colocar-los por ultimo
     constructor(selector:string, escapar?:boolean){
-        this.element = document.querySelector(selector);
+        const element  = document.querySelector(selector);
+        if (element){
+            
+            this.element = element as HTMLElement
+        }else{
+            throw Error (`Seletor ${selector} não exite no DOM.`)
+        }
         if(escapar){
             this.escapar = escapar
         }
