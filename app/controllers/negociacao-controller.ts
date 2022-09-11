@@ -24,7 +24,11 @@ export default class negociacaoController{
     }
 
     adiciona(): void{
-        const negociacao = this.criaNegociacao();
+        const negociacao = Negociacao.criaDe(
+            this.inputData.value,
+            this.inputQuantidade.value,
+            this.inputValor.value,
+        );
         
         if( this.isDiaUtil(negociacao.data) ){
             this.mensagemView.update('Negociações só podem ser feitas em dias úteis. ')
@@ -33,14 +37,6 @@ export default class negociacaoController{
         this.negociacoes.adiciona(negociacao);
         this.limpaForm();
         this.atualizaView();
-    }
-
-    private criaNegociacao(): Negociacao{
-        const exp = /-/g
-        const date = new Date(this.inputData.value.replace(exp, ','))
-        const quantidade = parseInt(this.inputQuantidade.value)
-        const valor = parseInt(this.inputValor.value)
-        return new Negociacao(date, quantidade, valor)
     }
 
     private limpaForm():void{
