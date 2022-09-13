@@ -20,25 +20,26 @@ export default class negociacaoController{
         this.negociacoesView.update(this.negociacoes);
     }   
 
-    private isDiaUtil(data:Date):boolean{
-        return data.getDay() < DiasDaSemana.SABADO && data.getDay() > DiasDaSemana.DOMINGO
-    }
-
-    @logarTempoExecucao();
+    
+    @logarTempoExecucao()
     adiciona(): void{
         const negociacao = Negociacao.criaDe(
             this.inputData.value,
             this.inputQuantidade.value,
             this.inputValor.value,
-        );
+            );
         
-        if( this.isDiaUtil(negociacao.data) ){
-            this.mensagemView.update('Negociações só podem ser feitas em dias úteis. ')
-            return
+            if(!this.isDiaUtil(negociacao.data) ){
+                this.mensagemView.update('Negociações só podem ser feitas em dias úteis. ')
+                return
+            }
+            this.negociacoes.adiciona(negociacao);
+            this.limpaForm();
+            this.atualizaView();
         }
-        this.negociacoes.adiciona(negociacao);
-        this.limpaForm();
-        this.atualizaView();
+
+    private isDiaUtil(data:Date):boolean{
+        return data.getDay() < DiasDaSemana.SABADO && data.getDay() > DiasDaSemana.DOMINGO
     }
 
     private limpaForm():void{
