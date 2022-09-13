@@ -1,3 +1,4 @@
+import { inspect } from "../decorators/inspect.js";
 import { logarTempoExecucao } from "../decorators/logar-tempo-execucao.js";
 import { DiasDaSemana } from "../enums/dias-da-semana.js";
 import Negociacao from "../models/negociacao.js";
@@ -21,6 +22,7 @@ export default class negociacaoController{
     }   
 
     
+    @inspect()
     @logarTempoExecucao()
     adiciona(): void{
         const negociacao = Negociacao.criaDe(
