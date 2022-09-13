@@ -1,3 +1,4 @@
+import { logarTempoExecucao } from "../decorators/logar-tempo-execucao.js";
 import { DiasDaSemana } from "../enums/dias-da-semana.js";
 import Negociacao from "../models/negociacao.js";
 import Negociacoes from "../models/negociacoes.js";
@@ -23,6 +24,7 @@ export default class negociacaoController{
         return data.getDay() < DiasDaSemana.SABADO && data.getDay() > DiasDaSemana.DOMINGO
     }
 
+    @logarTempoExecucao();
     adiciona(): void{
         const negociacao = Negociacao.criaDe(
             this.inputData.value,
