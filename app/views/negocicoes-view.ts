@@ -1,3 +1,4 @@
+import { escape } from "../decorators/escape.js";
 import Negociacoes from "../models/negociacoes.js";
 import { View } from "./view.js";
 
