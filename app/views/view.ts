@@ -13,7 +13,6 @@ export abstract class View<T> {
             throw Error (`Seletor ${selector} não exite no DOM.`)
         }
     }
-    @logarTempoExecucao(true)
     update(model:T):void{
         let template = this.template(model)
         this.element.innerHTML = this.template(model); 
