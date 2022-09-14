@@ -14,7 +14,7 @@ import NegociacoesView from "../views/negocicoes-view.js";
 export default class negociacaoController {
     constructor() {
         this.negociacoes = new Negociacoes();
-        this.negociacoesView = new NegociacoesView('#negociacoesView', true);
+        this.negociacoesView = new NegociacoesView('#negociacoesView');
         this.mensagemView = new MensagemView('#mensagemView');
         this.inputData = document.querySelector('#data');
         this.inputQuantidade = document.querySelector('#quantidade');
@@ -46,6 +46,6 @@ export default class negociacaoController {
     }
 }
 __decorate([
-    inspect(),
+    inspect,
     logarTempoExecucao()
 ], negociacaoController.prototype, "adiciona", null);

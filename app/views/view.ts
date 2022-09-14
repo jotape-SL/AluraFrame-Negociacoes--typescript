@@ -2,10 +2,9 @@ import { logarTempoExecucao } from "../decorators/logar-tempo-execucao.js";
 
 export abstract class View<T> {
     protected element : HTMLElement
-    private escapar = false
 
     // paramentos opcionais nao podem ser atrbuidos nos primeiros paramentros sendo necessario colocar-los por ultimo
-    constructor(selector:string, escapar?:boolean){
+    constructor(selector:string){
         const element  = document.querySelector(selector);
         if (element){
             
@@ -13,17 +12,11 @@ export abstract class View<T> {
         }else{
             throw Error (`Seletor ${selector} não exite no DOM.`)
         }
-        if(escapar){
-            this.escapar = escapar
-        }
     }
     @logarTempoExecucao(true)
     update(model:T):void{
         let template = this.template(model)
         this.element.innerHTML = this.template(model); 
-        if(this.escapar){
-            template = template.replace(/<script>[\s\S]*?<\/script>/,'')
-        }
         this.element.innerHTML = template
     }
 
