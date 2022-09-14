@@ -22,7 +22,7 @@ export default class negociacaoController{
     }   
 
     
-    @inspect()
+    @inspect
     @logarTempoExecucao()
     adiciona(): void{
         const negociacao = Negociacao.criaDe(
