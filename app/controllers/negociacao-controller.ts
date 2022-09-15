@@ -41,7 +41,23 @@ export default class negociacaoController{
             this.atualizaView();
         }
     importarDados():void{
-        alert('oi')
+        fetch('http://localhost:8080/dados')
+            .then(res => res.json())
+            .then((dados: any[])=>{
+                return dados.map(dadoHoje =>{
+                    return new Negociacao(
+                        new Date(),
+                        dadoHoje.vezes,
+                        dadoHoje.montante
+                    )
+                })
+            })
+        .then(negociacoesDeHoje =>{
+            for(let negociacao of negociacoesDeHoje){
+                this.negociacoes.adiciona(negociacao);
+            }
+            this.negociacoesView.update(this.negociacoes)
+        })
     }
     private isDiaUtil(data:Date):boolean{
         return data.getDay() < DiasDaSemana.SABADO && data.getDay() > DiasDaSemana.DOMINGO
