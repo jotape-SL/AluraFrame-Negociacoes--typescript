@@ -4,6 +4,7 @@ import { logarTempoExecucao } from "../decorators/logar-tempo-execucao.js";
 import { DiasDaSemana } from "../enums/dias-da-semana.js";
 import Negociacao from "../models/negociacao.js";
 import Negociacoes from "../models/negociacoes.js";
+import { NegociacoesService } from "../sevices/negociacoes-service.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import NegociacoesView from "../views/negocicoes-view.js";
 
@@ -16,7 +17,8 @@ export default class negociacaoController{
     private inputValor: HTMLInputElement;
     private negociacoes = new Negociacoes();
     private negociacoesView = new NegociacoesView('#negociacoesView');
-    private mensagemView = new MensagemView('#mensagemView')
+    private mensagemView = new MensagemView('#mensagemView');
+    private negociacoesService = new NegociacoesService();  
 
     constructor(){
         this.negociacoesView.update(this.negociacoes);
@@ -41,23 +43,14 @@ export default class negociacaoController{
             this.atualizaView();
         }
     importarDados():void{
-        fetch('http://localhost:8080/dados')
-            .then(res => res.json())
-            .then((dados: NegociacoesDia[])=>{
-                return dados.map(dadoHoje =>{
-                    return new Negociacao(
-                        new Date(),
-                        dadoHoje.vezes,
-                        dadoHoje.montante
-                    )
-                })
+        this.negociacoesService
+            .obterNegociacoesDoDia()
+            .then(negociacoesDeHoje =>{
+                for(let negociacao of negociacoesDeHoje){
+                    this.negociacoes.adiciona(negociacao);
+                }
+                this.negociacoesView.update(this.negociacoes )
             })
-        .then(negociacoesDeHoje =>{
-            for(let negociacao of negociacoesDeHoje){
-                this.negociacoes.adiciona(negociacao);
-            }
-            this.negociacoesView.update(this.negociacoes )
-        })
     }
     private isDiaUtil(data:Date):boolean{
         return data.getDay() < DiasDaSemana.SABADO && data.getDay() > DiasDaSemana.DOMINGO
