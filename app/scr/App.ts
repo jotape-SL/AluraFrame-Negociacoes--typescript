@@ -1,3 +1,4 @@
+
 import negociacaoController from "./controllers/negociacao-controller.js";
 import NegociacoesView from "./views/negocicoes-view.js";
 
@@ -10,4 +11,13 @@ if(form){
   } );
 }else{
   throw Error("Não foi possível inicizliar a aplicação. Veriqfique se o 'form' existe");
+}
+
+const botaoImporta = document.querySelector('#botao-importa')
+if(botaoImporta){
+  botaoImporta.addEventListener('click', ()=>{
+    controller.importarDados();
+  })
+}else{
+  throw Error ('Botão importa não foi encontrado')
 }
