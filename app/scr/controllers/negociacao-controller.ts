@@ -43,7 +43,7 @@ export default class negociacaoController{
     importarDados():void{
         fetch('http://localhost:8080/dados')
             .then(res => res.json())
-            .then((dados: any[])=>{
+            .then((dados: NegociacoesDia[])=>{
                 return dados.map(dadoHoje =>{
                     return new Negociacao(
                         new Date(),
@@ -56,7 +56,7 @@ export default class negociacaoController{
             for(let negociacao of negociacoesDeHoje){
                 this.negociacoes.adiciona(negociacao);
             }
-            this.negociacoesView.update(this.negociacoes)
+            this.negociacoesView.update(this.negociacoes )
         })
     }
     private isDiaUtil(data:Date):boolean{
