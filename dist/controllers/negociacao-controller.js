@@ -29,6 +29,9 @@ export default class negociacaoController {
         this.limpaForm();
         this.atualizaView();
     }
+    importarDados() {
+        alert('oi');
+    }
     isDiaUtil(data) {
         return data.getDay() < DiasDaSemana.SABADO && data.getDay() > DiasDaSemana.DOMINGO;
     }
