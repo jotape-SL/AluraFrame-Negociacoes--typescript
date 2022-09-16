@@ -11,6 +11,7 @@ import { DiasDaSemana } from "../enums/dias-da-semana.js";
 import Negociacao from "../models/negociacao.js";
 import Negociacoes from "../models/negociacoes.js";
 import { NegociacoesService } from "../sevices/negociacoes-service.js";
+import { imprimir } from "../utils/imprimir.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import NegociacoesView from "../views/negocicoes-view.js";
 export default class negociacaoController {
@@ -28,12 +29,18 @@ export default class negociacaoController {
             return;
         }
         this.negociacoes.adiciona(negociacao);
+        imprimir(negociacao, this.negociacoes);
         this.limpaForm();
         this.atualizaView();
     }
     importarDados() {
         this.negociacoesService
             .obterNegociacoesDoDia()
+            .then(negociacoesDeHoje => {
+            return negociacoesDeHoje.filter(negociacoesDeHoje => {
+                return !this.negociacoes.lista().some(negociacao => negociacao.isEqual(negociacoesDeHoje));
+            });
+        })
             .then(negociacoesDeHoje => {
             for (let negociacao of negociacoesDeHoje) {
                 this.negociacoes.adiciona(negociacao);
@@ -68,3 +75,4 @@ __decorate([
     logarTempoExecucao(),
     inspect
 ], negociacaoController.prototype, "adiciona", null);
+//# sourceMappingURL=negociacao-controller.js.map
