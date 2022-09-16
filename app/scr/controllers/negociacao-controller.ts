@@ -48,7 +48,7 @@ export default class negociacaoController{
             .obterNegociacoesDoDia()
             .then(negociacoesDeHoje => {
                 return negociacoesDeHoje.filter(negociacoesDeHoje =>{
-                    !this.negociacoes.lista().some(negociacao => negociacao.isEqual(negociacoesDeHoje))
+                    return !this.negociacoes.lista().some(negociacao => negociacao.isEqual(negociacoesDeHoje))
                 })
             })
             .then(negociacoesDeHoje =>{
