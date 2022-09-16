@@ -27,3 +27,4 @@ export default class NegociacoesView extends View {
         return new Intl.DateTimeFormat().format(data);
     }
 }
+//# sourceMappingURL=negocicoes-view.js.map
