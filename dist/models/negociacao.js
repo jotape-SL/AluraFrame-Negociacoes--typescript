@@ -18,4 +18,11 @@ export default class Negociacao {
         const valor = parseInt(valorString);
         return new Negociacao(date, quantidade, valor);
     }
+    paraTexto() {
+        return `
+        Data:${this.data}
+        Quantidade:${this.quantidade}
+        Valor:${this.valor}
+    `;
+    }
 }
